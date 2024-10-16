@@ -1,21 +1,20 @@
 /* eslint-disable react/prop-types */
 
 import { useLocation } from "react-router-dom";
+// @ts-ignore
 import { navbarData } from "../lib";
 import { useMemo } from "react";
 
+// @ts-ignore
 export const Protected = ({ children }) => {
   const location = useLocation();
 
-  const pathname = useMemo(
-    () => location?.pathname?.split("/")?.[1]?.toLowerCase(),
-    [location.pathname]
-  );
   return (
     <main className="min-h-screen from-slate-100 to-lime-300 bg-gradient-to-r">
       <section className="container p-2 mx-auto">
         <nav>
           <ul className="flex gap-2">
+            {/* @ts-ignore */}
             {navbarData?.map((navbarItem, navbarItemIndex) => {
               return (
                 <li
@@ -26,6 +25,7 @@ export const Protected = ({ children }) => {
                 >
                   <a
                     href={navbarItem?.link}
+                    // @ts-ignore
                     alt={`nav_link_${navbarItem?.link}`}
                     className="text-4xl font-semibold"
                   >
@@ -36,14 +36,8 @@ export const Protected = ({ children }) => {
             })}
           </ul>
         </nav>
-          <section className="mt-5">{children}</section>
+        <section className="mt-5">{children}</section>
       </section>
     </main>
   );
-};
-
-const isEqual = (a, b) => {
-  const check = b?.toLowerCase() === a?.toLowerCase();
-
-  return check;
 };

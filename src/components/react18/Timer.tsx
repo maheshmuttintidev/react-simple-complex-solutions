@@ -1,27 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
-import { Protected } from "../../layouts/Protected";
+import { useCallback, useState } from "react";
 import { converNumberToTime } from "../../utils";
-import { ComingSoon } from "../../components/ComingSoon";
 
-export function React18All() {
-  return (
-    <Protected selectedName="react-18">
-      <h1 className="text-3xl font-bold">React 18 Assignments/Practice</h1>
-
-      <div className="hover:bg-yellow-100 border border-2 border-yellow-400 rounded-md shadow-md p-2 my-2">
-        <Timer />
-      </div>
-      <ComingSoon />
-    </Protected>
-  );
-}
-
-const Timer = () => {
+export const Timer = () => {
   const [countDownTime, setCountDownTime] = useState(0);
-  const [timer, setTimer] = useState(null);
+  const [timer, setTimer] = useState<any | null>(null);
 
   const handleStartTimer = useCallback(() => {
-    const internalTimer = setInterval(
+    const internalTimer: any = setInterval(
       () => setCountDownTime((prevState) => prevState + 1),
       10
     );
@@ -42,8 +27,12 @@ const Timer = () => {
 
   return (
     <div>
-      <h2 className="text-xl py-4 font-medium text-emerald-950 underline">Stop Watch</h2>
-      <p className="font-semibold text-base">{converNumberToTime(countDownTime)}</p>
+      <h2 className="text-xl py-4 font-medium text-emerald-950 underline">
+        Stop Watch
+      </h2>
+      <p className="font-semibold text-base">
+        {converNumberToTime(countDownTime)}
+      </p>
       <button
         className="border border-1 bg-blue-400 p-2 rounded-md"
         onClick={handleStartTimer}
