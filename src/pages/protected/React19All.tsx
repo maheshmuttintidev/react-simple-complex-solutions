@@ -4,8 +4,9 @@ import { ComingSoon } from "../../components/ComingSoon";
 
 export function React19All() {
   return (
+    // @ts-ignore
     <Protected selectedName="react-19">
-    <h1 className="text-3xl font-bold">New Features in React 19</h1>
+      <h1 className="text-3xl font-bold">New Features in React 19</h1>
       <div className="flex gap-3 flex-wrap py-3">
         {newHooks?.map((hook, hookIndex) => {
           return (

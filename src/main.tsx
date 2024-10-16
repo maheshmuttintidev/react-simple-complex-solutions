@@ -8,9 +8,10 @@ import { Protected } from "./layouts/Protected";
 const router = createBrowserRouter([
   {
     path: "/",
+    // @ts-ignore
     element: <Protected />,
   },
-  ...generalRoutes
+  ...generalRoutes,
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

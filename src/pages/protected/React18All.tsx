@@ -4,6 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 
 export function React18All() {
   return (
+    // @ts-ignore
     <Protected selectedName="react-18">
       <h1 className="text-3xl font-bold">React 18 Assignments/Practice</h1>
 

@@ -1,4 +1,4 @@
-export const converNumberToTime = (ms) => {
+export const converNumberToTime = (ms: any) => {
   if (!ms?.toString()) {
     return;
   }
@@ -13,9 +13,11 @@ export const converNumberToTime = (ms) => {
   const formattedHours = String(hours).padStart(2, "0");
   const formattedMinutes = String(minutes).padStart(2, "0");
   const formattedSeconds = String(seconds).padStart(2, "0");
-  const formattedMilliSeconds = String(ms).padStart(3, "0");
+  const formattedMilliSeconds: any = String(ms).padStart(3, "0");
 
   return `${formattedHours} hr: ${formattedMinutes} min: ${formattedSeconds} sec${
-    formattedMilliSeconds > 0 && formattedMilliSeconds < 100 ? ': '+formattedMilliSeconds+'ms' : ""
+    formattedMilliSeconds > 0 && formattedMilliSeconds < 100
+      ? ": " + formattedMilliSeconds + "ms"
+      : ""
   }`;
 };
