@@ -1,6 +1,7 @@
+import { TabsControlsForReact19 } from "@/components";
 import { useState } from "react";
-import { Protected } from "../../layouts/Protected";
 import { ComingSoon } from "../../components/ComingSoon";
+import { Protected } from "../../layouts/Protected";
 
 export function React19All() {
   return (
@@ -8,16 +9,17 @@ export function React19All() {
     <Protected selectedName="react-19">
       <h1 className="text-3xl font-bold">New Features in React 19</h1>
       <div className="flex gap-3 flex-wrap py-3">
-        {newHooks?.map((hook, hookIndex) => {
+        <TabsControlsForReact19 />
+        {/* {newHooks?.map((hook, hookIndex) => {
           return (
             <div
-              className="flex-grow-1 hover:bg-yellow-100 border border-2 border-yellow-400 rounded-md shadow-md "
+              className="flex-grow-1 hover:bg-yellow-100 border-2 border-yellow-400 rounded-md shadow-md "
               key={`hook_${hookIndex}`}
             >
               {hook.component}
             </div>
           );
-        })}
+        })} */}
       </div>
       <ComingSoon />
     </Protected>

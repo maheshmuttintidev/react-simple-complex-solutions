@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-tabs": "^1.1.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.3.0",
@@ -19,6 +20,7 @@
     "jspdf": "^2.5.2",
     "lucide-react": "^0.453.0",
     "path": "^0.12.7",
+    "prismjs": "^1.29.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
@@ -28,6 +30,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.7.5",
+    "@types/prismjs": "^1.26.5",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.2.1",
