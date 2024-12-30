@@ -4,6 +4,7 @@ import React from "react";
 import { CarouselDemo } from "./Carousel";
 
 export const ComponentToPdf = () => {
+  // @ts-ignore
   const printRef: any = React.useRef();
 
   const handleDownloadPdf = async () => {
