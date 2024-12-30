@@ -14,29 +14,50 @@ const fakeServer = (newCount: number): Promise<number> => {
 };
 
 export function OptimisticCounter() {
-  const [count, setCount] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const [count, setCount] = useState({ value: 0, status: "idle" });
+  
   const handleIncrement = async () => {
-    const optimisticCount = count + 1;
-    setCount(optimisticCount);
-    setIsLoading(true);
-
+    setCount({ value: count.value + 1, status: "pending" });
     try {
-      await fakeServer(optimisticCount);
+      await fakeServer(1);
+      setCount({ value: count.value + 1, status: "success" });
     } catch (error) {
-      setCount(count);
-    } finally {
-      setIsLoading(false);
+      setCount({ value: count.value + 1, status: "failure" });
+      console.log("error", error);
     }
   };
 
   return (
-   <div className="space-y-2 p-4">
-    <p className="text-lg">Count: {count}</p>
-    <Button onClick={handleIncrement} disabled={isLoading}>
-      {isLoading ? "Loading..." : "Increment"}{" "}
-    </Button>
+    <div className="space-y-2 p-4">
+      <Counter count={count} handleIncrement={handleIncrement} />
     </div>
   )
-}`
+}
+
+const Counter = ({ count, handleIncrement }: any) => {
+  const [, startTransition] = useTransition();
+  const [optimisticCount, setOptimisticCount] = useOptimistic(
+    count,
+    (prevState: any, newState: any) => {
+      const updatedValue = prevState.value + newState;
+      return { value: updatedValue, status: "success" };
+    }
+  );
+  return (
+    <>
+      <p className="text-lg">Count: {optimisticCount.value}</p>
+      <Button
+        disabled={optimisticCount.status === "pending"}
+        onClick={() => {
+          startTransition(() => {
+            setOptimisticCount(1);
+            handleIncrement();
+          });
+        }}
+      >
+        {optimisticCount.status === "pending" ? "Updating" : "Increment"}
+      </Button>
+    </>
+  );
+};
+`;

@@ -1,2 +1,2 @@
-export * from './optimistic-counter'
-export * from './optimistic-todos'
+export * from './optimistic-counter';
+

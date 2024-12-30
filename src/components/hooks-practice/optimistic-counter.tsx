@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
+import { useOptimistic, useState, useTransition } from "react";
 import { CodeBlock } from "../custom-ui/code-block";
 import { Button } from "../ui/button";
 import { optimisticCounterCodeSnippet } from "./optimistic-counter-code";
@@ -16,21 +16,44 @@ const fakeServer = (newCount: number): Promise<number> => {
   });
 };
 
+const Counter = ({ count, handleIncrement }: any) => {
+  const [, startTransition] = useTransition();
+  const [optimisticCount, setOptimisticCount] = useOptimistic(
+    count,
+    (prevState: any, newState: any) => {
+      const updatedValue = prevState.value + newState;
+      return { value: updatedValue, status: "success" };
+    }
+  );
+  return (
+    <>
+      <p className="text-lg">Count: {optimisticCount.value}</p>
+      <Button
+        disabled={optimisticCount.status === "pending"}
+        onClick={() => {
+          startTransition(() => {
+            setOptimisticCount(1);
+            handleIncrement();
+          });
+        }}
+      >
+        {optimisticCount.status === "pending" ? "Updating" : "Increment"}
+      </Button>
+    </>
+  );
+};
+
 export function OptimisticCounter() {
-  const [count, setCount] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [count, setCount] = useState({ value: 0, status: "idle" });
 
   const handleIncrement = async () => {
-    const optimisticCount = count + 1;
-    setCount(optimisticCount);
-    setIsLoading(true);
-
+    setCount({ value: count.value + 1, status: "pending" });
     try {
-      await fakeServer(optimisticCount);
+      await fakeServer(1);
+      setCount({ value: count.value + 1, status: "success" });
     } catch (error) {
-      setCount(count);
-    } finally {
-      setIsLoading(false);
+      setCount({ value: count.value + 1, status: "failure" });
+      console.log("error", error);
     }
   };
 
@@ -38,47 +61,23 @@ export function OptimisticCounter() {
     <div className="p-4">
       <h1 className="text-xl pb-4">Example 1: Counter</h1>
 
-      <Tabs defaultValue="account" className="">
+      <Tabs defaultValue="code" className="">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="account">Output</TabsTrigger>
-          <TabsTrigger value="password">Code</TabsTrigger>
+          <TabsTrigger value="code">Code</TabsTrigger>
+          <TabsTrigger value="output">Output</TabsTrigger>
         </TabsList>
-        <TabsContent value="account">
-          <div className="space-y-2 p-4">
-            <p className="text-lg">Count: {count}</p>
-            <Button onClick={handleIncrement} disabled={isLoading}>
-              {isLoading ? "Loading..." : "Increment"}{" "}
-            </Button>
-          </div>
+        <TabsContent value="code">
+          <CodeBlock
+            code={optimisticCounterCodeSnippet}
+            language="javascript"
+          />
         </TabsContent>
-        <TabsContent value="password">
-          <CodeBlock code={optimisticCounterCodeSnippet} language="javascript"/>
+        <TabsContent value="output">
+          <div className="space-y-2 p-4">
+            <Counter count={count} handleIncrement={handleIncrement} />
+          </div>
         </TabsContent>
       </Tabs>
     </div>
   );
 }
-
-
-
-const CopyText = () => {
-  const handleCopy = () => {
-    navigator.clipboard.writeText("Text to copy");
-    alert("Text copied!");
-  };
-
-  return (
-    <div className="relative h-48">
-      <div className="sticky top-0 bg-blue-500 text-white p-4">
-        <button
-          className="px-4 py-2 bg-blue-700 rounded hover:bg-blue-800 focus:outline-none"
-          onClick={handleCopy}
-        >
-          Copy
-        </button>
-      </div>
-     
-    </div>
-  );
-};
-

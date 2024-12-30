@@ -1,7 +1,7 @@
 export const navbarData = [
   {
-    name: "v18",
-    slugName: 'react-18',
+    name: "React 18 Features Practice",
+    slugName: "react-18",
     link: "/react-18",
     meta: {},
     subNav: [
@@ -23,9 +23,9 @@ export const navbarData = [
     ],
   },
   {
-    name: "v19",
+    name: "React 19 Features Practice",
     link: "/react-19",
-    slugName: 'react-18',
+    slugName: "react-18",
     meta: {},
     subNav: [
       {
@@ -37,7 +37,7 @@ export const navbarData = [
         name: "Send Email",
         link: "/send-email",
         meta: {},
-      }
+      },
     ],
   },
 ];

@@ -1,16 +1,43 @@
 import { TabsControlsForReact19 } from "@/components";
 import { useState } from "react";
-import { ComingSoon } from "../../components/ComingSoon";
+import { Outlet } from "react-router-dom";
 import { Protected } from "../../layouts/Protected";
 
 export function React19All() {
   return (
-    // @ts-ignore
-    <Protected selectedName="react-19">
-      <h1 className="text-3xl font-bold">New Features in React 19</h1>
-      <div className="flex gap-3 flex-wrap py-3">
-        <TabsControlsForReact19 />
-        {/* {newHooks?.map((hook, hookIndex) => {
+    <>
+      <head>
+        <title>React 19 Practice Examples | Mahesh Muttinti</title>
+        <meta property="og:title" content="React Practice Reference" />
+        <meta
+          property="og:description"
+          content="A comprehensive reference for React practice, tutorials, and tips."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://www.react-all.maheshmuttintidev.in"
+        />
+        <meta property="og:image" content="https://i.imgur.com/WpO85EM.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="React Practice Reference Logo" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="React Practice Reference" />
+        <meta
+          name="twitter:description"
+          content="A comprehensive reference for React practice, tutorials, and tips."
+        />
+        <meta name="twitter:image" content="https://i.imgur.com/WpO85EM.png" />
+      </head>
+      <Protected selectedName="react-19">
+        <h1 className="text-3xl font-bold text-white">
+          New Features in React 19
+        </h1>
+        <div className="flex gap-3 flex-wrap py-3">
+          <TabsControlsForReact19 />
+          {/* {newHooks?.map((hook, hookIndex) => {
           return (
             <div
               className="flex-grow-1 hover:bg-yellow-100 border-2 border-yellow-400 rounded-md shadow-md "
@@ -20,9 +47,10 @@ export function React19All() {
             </div>
           );
         })} */}
-      </div>
-      <ComingSoon />
-    </Protected>
+        </div>
+        <Outlet />
+      </Protected>
+    </>
   );
 }
 
