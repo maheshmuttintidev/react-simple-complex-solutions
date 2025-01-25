@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { navbarData } from "../lib";
+import { WebsiteTrackerClient } from "@/components/website-tracker";
 
 export const Protected = ({
   children,
@@ -68,6 +69,7 @@ export const Protected = ({
           </section>
           <Outlet />
         </section>
+        <WebsiteTrackerClient />
       </main>
     </>
   );
